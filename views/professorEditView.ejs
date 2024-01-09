@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baze Podataka - Projekat</title>
+</head>
+<body>
+    <h1>Izmijeni profesora: <%= professor.ime %> <%= professor.prezime %></h1>
+
+    <div>
+        <form action="/izmijeni_profesora" method="post">
+            <input type="hidden" name="profesorId" value="<%= professor.profesorId %>">
+            <label for="firstName">Ime</label>
+            <input type="text" name="firstName" value="<%= professor.ime %>">
+            <label for="lastName">Prezime</label>
+            <input type="text" name="lastName" value="<%= professor.prezime %>">
+            <label for="email">Email</label>
+            <input type="text" name="email" value="<%= professor.email %>">
+            <label for="title">Titula</label>
+            <select name="title">
+                <option value="Doktor">Doktor</option>
+                <option value="Docent">Docent</option>
+                <option value="Profesor">Profesor</option>
+            </select>
+            <button type="submit">Posalji</button>
+        </form>
+    </div>
+</body>
+</html>

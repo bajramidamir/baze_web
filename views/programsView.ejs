@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baze Podataka - Projekat</title>
+</head>
+<body>
+    <h1> <%= results[0].studijskiProgram %> - <%= results[0].naziv %> - <%= results[0].opis %> </h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Semestar</th>
+                <th>Sifra predmeta</th>
+                <th>Naziv predmeta</th>
+                <th>Kontakt sati</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% results.forEach(result => { %>
+                <tr>
+                    <td><%= result.brojSemestra %></td>
+                    <td><%= result.sifraPredmeta %></td>
+                    <td><%= result.nazivPredmeta %></td>
+                    <td><%= result.kontaktSati %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+       
+    </table>
+</body>
+</html>

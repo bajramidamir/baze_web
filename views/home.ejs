@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baze Podataka - Projekat</title>
+</head>
+<body>
+    <h1>Baze Podataka - Projekat - Studentska sluzba</h1>
+
+
+    <div>
+        <h2>Izvjestaj - prosjecna ocjena studenta</h2>
+        <form action="/izvjestaj_prosjecna_ocjena" method="post">
+            <label for="index">Indeks studenta</label>
+            <select name="index">
+                <% indexes.forEach(index => { %>
+                    <option value="<%= index.indeksStudenta %>"><%= index.indeksStudenta %></option>
+                <% }); %>
+            </select>
+            <button type="submit">Posalji</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div>
+        <h2>Pregled studijskog programa i predmeta</h2>
+        <form action="/pregled_studijskog_programa" method="post">
+            <label for="programName">Studijski program</label>
+            <select name="programName">
+                <% programs.forEach(program => { %>
+                    <option value="<%= program.naziv %>"><%= program.naziv %></option>
+                <% }); %>
+            </select>
+            <button type="submit">Posalji</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div>
+        <h2>Izvjestaj - Lista studenata sa brojem polozenih ispita</h2>
+        <form action="/izvjestaj_lista_studenata" method="post">
+            <label for="year">Godina</label>
+            <input type="text" name="year">
+            <button type="submit">Posalji</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div>
+        <h2>Profesorski panel</h2>
+        <h3>Dodaj profesora</h3>
+        <form action="/dodaj_profesora" method="post">
+            <label for="firstName">Ime</label>
+            <input type="text" name="firstName" required>
+            <label for="lastName">Prezime</label>
+            <input type="text" name="lastName" required>
+            <label for="title">Titula</label>
+            <select name="title" required>
+                <option value="Doktor">Doktor</option>
+                <option value="Docent">Docent</option>
+                <option value="Profesor">Profesor</option>
+            </select>
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+            <button type="submit">Posalji</button>
+        </form>
+
+        <br>
+
+        <h3>Izmijeni profesora</h3>
+        <% professors.forEach(professor => { %>
+            <div>
+                <form action="/izmijeni_profesora" method="get">
+                    <p> <%= professor.ime %> <%= professor.prezime %>, <%= professor.titula %>, <%= professor.email %> </p>
+                    <input type="hidden" name="profesorId" value="<%= professor.profesorId %>">
+                    <button type="submit">Izmijeni</button>
+                </form>
+                <br>
+                <form action="/izbrisi_profesora" method="get">
+                    <input type="hidden" name="profesorId" value="<%= professor.profesorId %>">
+                    <button type="submit">Obrisi</button>
+                </form>
+                
+                <hr>
+            </div>
+        <% }); %>
+        
+    </div>
+
+</body>
+</html>
