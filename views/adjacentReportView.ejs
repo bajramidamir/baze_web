@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baze Podataka - Projekat</title>
+</head>
+<body>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Sifra predmeta</th>
+                <th>Ime predmeta</th>
+                <th>Prosjecna ocjena za prvi period</th>
+                <th>Prosjecna ocjena za drugi period</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% reports.forEach(report => { %>
+                <tr>
+                    <td><%= report.predmetId %></td>
+                    <td><%= report.imePredmeta %></td>
+                    <td><%= report.ProsjecnaOcjena1 %></td>
+                    <td><%= report.ProsjecnaOcjena2 %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+</body>
+</html>

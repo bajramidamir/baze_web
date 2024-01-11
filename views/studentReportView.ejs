@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baze Podataka - Projekat</title>
+</head>
+<body>
+    
+    <h2> <%= reports[0].imeStudenta %> <%= reports[0].prezimeStudenta %> </h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Ocjena</th>
+                <th>Predmet</th>
+                <th>Datum unosa</th>
+                <th>Profesor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% reports.forEach(report => { %>
+                <tr>
+                    <td><%= report.ocjena %></td>
+                    <td><%= report.imePredmeta %></td>
+                    <td><%= report.datumUnosa %></td>
+                    <td><%= report.imeProfesora %> <%= report.prezimeProfesora %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+</body>
+</html>

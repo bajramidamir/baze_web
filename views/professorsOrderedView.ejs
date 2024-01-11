@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baze Podataka - Projekat</title>
+</head>
+<body>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Sifra</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% professors.forEach(professor => { %>
+                <tr>
+                    <td><%= professor.profesorId %></td>
+                    <td><%= professor.ime %></td>
+                    <td><%= professor.prezime %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+</body>
+</html>

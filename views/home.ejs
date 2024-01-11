@@ -90,6 +90,70 @@
         <% }); %>
         
     </div>
+    
+    <br><br>
+
+    <h1>Odbrana - zadaci</h1>
+
+    <div>
+        <h2>Prikaz podataka o studentu, skupa sa njegovim ocjenama, datumima polaganja ispita, predmetnim profesorom.</h2>
+
+        <% students.forEach(student => { %>
+            <div>
+                <form action="/prikaz_podataka_student" method="get">
+                    <p> <%= student.ime %> <%= student.prezime %> </p>
+                    <input type="hidden" name="studentId" value="<%= student.studentId %>">
+                    <button type="submit">Posalji</button>
+                </form>
+                <hr>
+            </div>
+        <% }); %>
+    </div>
+
+    <br><br>
+
+    <div>
+        <h2>Lista profesora s odabranim redoslijedom</h2>
+        <form action="/prikaz_lista_profesora" method="post">
+            <p>Odaberite redoslijed</p>
+            <select name="order">
+                <option value="1">Ime</option>
+                <option value="2">Prezime</option>
+                <option value="3">Sifra</option>
+            </select>
+            <button type="submit">Posalji</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Uporedni izvjestaj procedura</h2>
+        <form action="/prikaz_uporedni_izvjestaj" method="post">
+            <label for="date1From">Datum 1 od</label>
+            <input type="date" name="date1From">
+            <label for="date1To">Datum 1 do</label>
+            <input type="date" name="date1To">
+            <br>
+            <label for="date2From">Datum 2 od</label>
+            <input type="date" name="date2From">
+            <label for="date2To">Datum 2 do</label>
+            <input type="date" name="date2To">
+            <br>
+            <button type="submit">Posalji</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Izvjestaj profesora i njihovih zaduzenja za studijski program</h2>
+        <form action="/prikaz_profesor_izvjestaj" method="post">
+            <label for="programName">Studijski program</label>
+            <select name="studyProgramId">
+                <% programs.forEach(program => { %>
+                    <option value="<%= program.studijskiProgramId %>"><%= program.naziv %></option>
+                <% }); %>
+            </select>
+            <button type="submit">Posalji</button>
+        </form>
+    </div>
 
 </body>
 </html>

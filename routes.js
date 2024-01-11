@@ -7,7 +7,8 @@ router.get('/', async (req, res) => {
         const indexes = await model.getStudentIndexes();
         const programs = await model.getAllPrograms();
         const professors = await model.getAllProfessors();
-        res.render('home', { indexes, programs, professors });
+        const students = await model.getAllStudents();
+        res.render('home', { indexes, programs, professors, students });
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
@@ -85,6 +86,50 @@ router.get('/izbrisi_profesora', async (req, res) => {
     try {
         await model.deleteProfessor(profesorId);
         res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    };
+});
+
+router.get('/prikaz_podataka_student', async (req, res) => {
+    const { studentId } = req.query;
+    try {
+        const reports = await model.getStudentReport(studentId);
+        res.render('studentReportView', { reports })
+    } catch(error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+router.post('/prikaz_lista_profesora', async (req, res) => {
+    const { order } = req.body;
+    try {
+        const professors = await model.getProfessorsOrdered(order);
+        res.render('professorsOrderedView', { professors });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    };
+});
+
+router.post('/prikaz_uporedni_izvjestaj', async (req, res) => {
+    const { date1From, date1To, date2From, date2To } = req.body;
+    try {
+        const reports = await model.getAdjacentReport(date1From, date1To, date2From, date2To);
+        res.render("adjacentReportView", { reports });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    };
+});
+
+router.post('/prikaz_profesor_izvjestaj', async (req, res) => {
+    const { studyProgramId } = req.body;
+    try {
+        const reports = await model.getProfessorReport(studyProgramId);
+        res.render("professorReportView", { reports });
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");

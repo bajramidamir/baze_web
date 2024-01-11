@@ -115,6 +115,66 @@ async function deleteProfessor(profesorId) {
     };
 };
 
+async function getStudentReport(studentId) {
+    const connection = mysql.createConnection(config);
+    const query = `SELECT po.datumUnosa, po.ocjena,
+    ps.ime as imeStudenta, ps.prezime as prezimeStudenta,
+    p.ime as imeProfesora, p.prezime as prezimeProfesora,
+    pp.imePredmeta
+        FROM projekat_ocjene po
+    INNER JOIN student2328.projekat_studenti ps on po.studentId = ps.studentId
+    INNER JOIN student2328.projekat_profesori p on po.profesorId = p.profesorId
+    INNER JOIN student2328.projekat_predmeti pp on po.predmetId = pp.predmetId
+    WHERE po.studentId = ?;`
+    try {
+        const [ rows, fields ] = await connection.promise().query(query, [studentId])
+        console.log(rows);
+        return rows;
+    } finally {
+        connection.end();
+    };
+};
+
+async function getAllStudents() {
+    const connection = mysql.createConnection(config);
+    try {
+        const [ rows, fields ] = await connection.promise().query("SELECT studentId, ime, prezime FROM projekat_studenti");
+        return rows;
+    } finally {
+        connection.end();
+    };
+};
+
+async function getProfessorsOrdered(order) {
+    const connection = mysql.createConnection(config);
+    try {
+        const [ rows, fields ] = await connection.promise().query("CALL ListaProfesora(?)", [order]);
+        return rows[0];
+    } finally {
+        connection.end();
+    };
+};
+
+async function getAdjacentReport(date1From, date1To, date2From, date2To) {
+    const connection = mysql.createConnection(config);
+    try {
+        const [ rows, fields ] = await connection.promise().query("CALL UporedniIzvjestajOcjena(?, ?, ?, ?)", [date1From, date1To, date2From, date2To]);
+        return rows[0];
+    } finally {
+        connection.end();
+    };
+};
+
+async function getProfessorReport(studyProgramId) {
+    const connection = mysql.createConnection(config);
+    try {
+        const [ rows, fields ] = await connection.promise().query("CALL IzvjestajProfesoraZaduzenjaPredmeta(?);", [studyProgramId]);
+        return rows[0];
+    } finally {
+        connection.end();
+    }
+}
+
 module.exports = {
     getStudentIndexes,
     getAllPrograms,
@@ -126,4 +186,9 @@ module.exports = {
     getProfessorById,
     updateProfessor,
     deleteProfessor,
+    getStudentReport,
+    getAllStudents,
+    getProfessorsOrdered,
+    getAdjacentReport,
+    getProfessorReport
 };
